@@ -31,7 +31,9 @@ foreach ($pages as $title => $display) {
         $id = $page->ID;
     }
     $content = str_replace('%%TITLE%%', $display, $uc_content);
-    wp_update_post(array('ID' => $id, 'post_content' => $content));
+    global $wpdb;
+    $wpdb->update($wpdb->posts, array('post_content' => $content, 'post_status' => 'publish'), array('ID' => $id));
+    clean_post_cache($id);
     delete_post_meta($id, '_elementor_edit_mode');
     update_post_meta($id, '_wp_page_template', 'elementor_header_footer');
     echo "Created/updated: $title<br>";

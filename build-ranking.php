@@ -5,9 +5,11 @@ $page = get_page_by_title('Ranking');
 
 $content = '
 <style>
-.pr-page-hero{background:#0f1623;padding:80px 60px;text-align:center;}
-.pr-page-hero h1{color:#fff;font-family:Georgia,serif;font-size:40px;letter-spacing:4px;margin:0;}
-.pr-page-hero p{color:#c9a96e;font-size:13px;letter-spacing:3px;margin-top:15px;}
+.pr-page-hero{position:relative;padding:80px 60px;text-align:center;overflow:hidden;min-height:300px;display:flex;flex-direction:column;align-items:center;justify-content:center;background:#0f1623 url("https://1aae2a70b3.clvaw-cdnwnd.com/011297634431441dae942d76bc328672/200000398-6278142450/images-pexels-com-photos-7267591-pexels-photo-7267591.webp?ph=1aae2a70b3") center/cover no-repeat;}
+.pr-page-hero::before{content:"";position:absolute;inset:0;background:rgba(15,22,35,0.6);z-index:0;}
+.pr-page-hero h1{color:#fff;font-family:Georgia,serif;font-size:40px;letter-spacing:4px;margin:0;position:relative;z-index:1;}
+.pr-page-hero p{color:#c9a96e;font-size:13px;letter-spacing:3px;margin-top:15px;position:relative;z-index:1;}
+.pr-lb-btn{position:relative;z-index:1;}
 .pr-rank-wrap{max-width:900px;margin:0 auto;padding:70px 40px;font-family:Arial,sans-serif;}
 .pr-rank-wrap h2{font-family:Georgia,serif;font-size:26px;color:#0f1623;letter-spacing:2px;margin:50px 0 10px;}
 .pr-rank-wrap h3{font-family:Georgia,serif;font-size:19px;color:#0f1623;margin:30px 0 8px;letter-spacing:1px;}
@@ -34,12 +36,27 @@ $content = '
 .pr-closing h2{color:#fff;font-family:Georgia,serif;font-size:28px;letter-spacing:3px;margin-bottom:15px;}
 .pr-closing p{color:#aaa;font-size:16px;line-height:1.8;max-width:650px;margin:0 auto 20px;}
 .pr-closing em{color:#c9a96e;font-style:italic;font-size:18px;display:block;margin-top:25px;}
+.pr-lb-btn{display:inline-block;background:#c9a96e;color:#fff;padding:14px 45px;letter-spacing:3px;font-size:13px;text-decoration:none;font-family:Arial,sans-serif;text-transform:uppercase;margin-top:20px;transition:background 0.3s;}
+.pr-lb-btn:hover{background:#112240;}
 </style>
 
 <div class="pr-page-hero">
-  <h1>PHOENIX RIDERS RANKING</h1>
-  <p><span class="pr-en">RISE TO THE TOP</span><span class="pr-ro">URCĂ SPRE VÂRF</span></p>
+  <h1 id="pr-rank-h1" style="opacity:0;transform:translateY(60px);transition:opacity 1.4s ease,transform 1.4s ease;">PHOENIX RIDERS RANKING</h1>
+  <p id="pr-rank-p" style="opacity:0;transform:translateY(60px);transition:opacity 1.4s ease,transform 1.4s ease;"><span class="pr-en">RISE TO THE TOP</span><span class="pr-ro">URCĂ SPRE VÂRF</span></p>
+  <a href="' . home_url('/leaderboard/') . '" class="pr-lb-btn"><span class="pr-en">Leaderboard</span><span class="pr-ro">Clasament</span></a>
 </div>
+<script>
+document.addEventListener("DOMContentLoaded", function(){
+  setTimeout(function(){
+    document.getElementById("pr-rank-h1").style.opacity="1";
+    document.getElementById("pr-rank-h1").style.transform="translateY(0)";
+  }, 100);
+  setTimeout(function(){
+    document.getElementById("pr-rank-p").style.opacity="1";
+    document.getElementById("pr-rank-p").style.transform="translateY(0)";
+  }, 400);
+});
+</script>
 
 <div class="pr-rank-wrap">
 
@@ -126,10 +143,12 @@ $content = '
   <em>&ldquo;<span class="pr-en">We invite you to make history together</span><span class="pr-ro">Vă invităm să facem istorie împreună</span>&rdquo;</em>
 </div>';
 
-wp_update_post(array(
-    'ID' => $page->ID,
+global $wpdb;
+$wpdb->update($wpdb->posts, array(
     'post_content' => $content,
-));
+    'post_status'  => 'publish',
+), array('ID' => $page->ID));
+clean_post_cache($page->ID);
 
 delete_post_meta($page->ID, '_elementor_edit_mode');
 update_post_meta($page->ID, '_wp_page_template', 'elementor_header_footer');

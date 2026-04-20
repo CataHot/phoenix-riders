@@ -5,31 +5,37 @@ add_action('wp_enqueue_scripts', function() {
 });
 
 add_action('wp_head', function() {
+    echo '<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 64 64\'><rect width=\'64\' height=\'64\' rx=\'12\' ry=\'12\' fill=\'%230f1623\'/><text x=\'50%25\' y=\'54%25\' dominant-baseline=\'middle\' text-anchor=\'middle\' fill=\'%23c9a96e\' font-family=\'Arial,sans-serif\' font-size=\'32\' font-weight=\'900\' letter-spacing=\'1\'>PR</text></svg>">';
+}, 1);
+
+add_action('wp_head', function() {
 ?>
 <style>
 /* Reset hello theme header */
-.site-header { padding: 0 !important; background: #0f1623 !important; border-bottom: none !important; position: sticky; top: 0; z-index: 9999; }
+.site-header { padding: 0 !important; background: transparent !important; border-bottom: none !important; display: none !important; }
+.pr-header { position: fixed !important; top: 0; left: 0; right: 0; z-index: 9999; background: #0f1623; border-bottom: 1px solid #fff; }
+body { padding-top: 70px; }
 .site-branding { display: none !important; }
 .pr-header { display: flex; align-items: center; justify-content: space-between; padding: 18px 60px; }
 .pr-logo { font-family: Georgia, serif; font-size: 22px; font-weight: 700; text-decoration: none; letter-spacing: 3px; }
-.pr-logo .pr-word-phoenix { color: #0f1623; transition: color 0.3s; }
+.pr-logo .pr-word-phoenix { color: #fff; transition: color 0.3s; }
 .pr-logo .pr-word-riders { color: #c9a96e; transition: color 0.3s; }
 .pr-logo:hover .pr-word-phoenix { color: #c9a96e; }
-.pr-logo:hover .pr-word-riders { color: #0f1623; }
+.pr-logo:hover .pr-word-riders { color: #fff; }
 .pr-logo span { color: #c9a96e; }
 .pr-nav { display: flex; gap: 35px; list-style: none; margin: 0; padding: 0; }
 .pr-nav a { font-size: 12px; letter-spacing: 2px; color: #c9a96e; text-decoration: none; text-transform: uppercase; font-family: Arial, sans-serif; transition: color 0.3s; }
-.pr-nav a:hover { color: #0f1623; }
+.pr-nav a:hover { color: #fff; }
 .pr-nav .pr-dropdown { position: relative; }
 .pr-nav .pr-dropdown > a::after { content: " ›"; font-size: 14px; }
-.pr-dropdown-menu { display: none; position: absolute; top: 100%; left: 0; background: #fff; min-width: 200px; padding: 20px 0; box-shadow: 0 8px 30px rgba(0,0,0,0.12); z-index: 9999; }
+.pr-dropdown-menu { display: block; position: absolute; top: 100%; left: 0; background: #c9a96e; min-width: 200px; padding: 20px 0; box-shadow: 0 8px 30px rgba(0,0,0,0.12); z-index: 9999; opacity: 0; pointer-events: none; transition: opacity 0.8s ease; }
+.pr-dropdown:hover .pr-dropdown-menu { opacity: 1; pointer-events: auto; }
 .pr-dropdown-menu .pr-dropdown-label { font-size: 10px; letter-spacing: 2px; color: #aaa; text-transform: uppercase; font-family: Arial, sans-serif; padding: 0 25px 10px; display: block; }
 .pr-dropdown-menu a { display: block; padding: 10px 25px; font-size: 13px; letter-spacing: 1px; color: #0f1623; text-transform: none; font-family: Georgia, serif; font-style: italic; }
 .pr-dropdown-menu a:hover { color: #c9a96e; background: #faf7f3; }
 .pr-dropdown > a { padding-bottom: 15px; }
-.pr-dropdown:hover .pr-dropdown-menu { display: block; }
 .pr-lang { display: flex; gap: 6px; }
-.pr-lang a { font-size: 11px; letter-spacing: 1px; color: #c9a96e; text-decoration: none; border: 1px solid #c9a96e; padding: 5px 10px; font-family: Arial, sans-serif; transition: all 0.3s; cursor: pointer; }
+.pr-lang a { font-size: 11px; letter-spacing: 1px; color: #c9a96e; text-decoration: none; border: 1px solid #c9a96e; padding: 5px 10px; font-family: Arial, sans-serif; transition: all 0.3s; cursor: pointer; background: rgba(201,169,110,0.50); }
 .pr-lang a:hover, .pr-lang a.active { background: #c9a96e; color: #fff; }
 [data-lang="ro"] .pr-ro { display: block !important; }
 [data-lang="ro"] .pr-en { display: none !important; }
@@ -53,14 +59,14 @@ add_action('wp_body_open', function() {
             <li class="pr-dropdown">
                 <a href="#"><span class="pr-en">Competitions</span><span class="pr-ro">Competiții</span></a>
                 <div class="pr-dropdown-menu">
-                    <span class="pr-dropdown-label"><span class="pr-en">Compete</span><span class="pr-ro">Concurează</span></span>
-                    <a href="' . get_permalink(get_page_by_title("Calendar")) . '"><span class="pr-en">Calendar</span><span class="pr-ro">Calendar</span></a>
+<a href="' . get_permalink(get_page_by_title("Calendar")) . '"><span class="pr-en">Calendar</span><span class="pr-ro">Calendar</span></a>
                     <a href="' . get_permalink(get_page_by_title("Ranking")) . '">Ranking</a>
                     <a href="' . get_permalink(get_page_by_title("Competitors")) . '"><span class="pr-en">Competitors</span><span class="pr-ro">Concurenți</span></a>
                     <a href="' . get_permalink(get_page_by_title("Watch Live")) . '"><span class="pr-en">Watch Live</span><span class="pr-ro">Urmărește Live</span></a>
                 </div>
             </li>
             <li><a href="' . get_permalink(get_page_by_title("Events")) . '"><span class="pr-en">Events 2026</span><span class="pr-ro">Evenimente 2026</span></a></li>
+            <li><a href="' . get_permalink(get_page_by_title("House of Equestrian Excellence")) . '"><span class="pr-en">The House of Equestrian Excellence 2026</span><span class="pr-ro">The House of Equestrian Excellence 2026</span></a></li>
             <li><a href="' . get_permalink(get_page_by_title("Shop")) . '">Shop</a></li>
             <li><a href="' . get_permalink(get_page_by_title("Contact")) . '">Contact</a></li>
         </ul>
@@ -75,7 +81,7 @@ add_action('wp_head', function() {
 add_action('wp_footer', function() {
 ?>
 <style>
-.pr-footer { background: #0f1623; color: #aaa; padding: 50px 60px 30px; font-family: Arial, sans-serif; }
+.pr-footer { background: #0f1623; color: #aaa; padding: 50px 60px 30px; font-family: Arial, sans-serif; border-top: 1px solid #fff; }
 .pr-footer-top { display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 40px; border-bottom: 1px solid #333; padding-bottom: 40px; margin-bottom: 25px; }
 .pr-footer-brand { font-family: Georgia, serif; font-size: 20px; letter-spacing: 3px; color: #fff; }
 .pr-footer-brand span { color: #c9a96e; }

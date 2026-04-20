@@ -26,8 +26,38 @@ $content = '
 </style>
 
 <div class="pr-page-hero">
-  <h1><span class="pr-en">EQUESTRIAN CENTER &amp; COUNTRY CLUB</span><span class="pr-ro">CENTRU ECVESTRU &amp; COUNTRY CLUB</span></h1>
+  <h1 id="pr-about-h1" style="visibility:hidden;"></h1>
 </div>
+<script>
+document.addEventListener("DOMContentLoaded", function(){
+  var lang = localStorage.getItem("pr_lang") || "en";
+  var words = lang === "ro" ? ["CENTRU","ECVESTRU","&","COUNTRY","CLUB"] : ["EQUESTRIAN","CENTER","&","COUNTRY","CLUB"];
+  var el = document.getElementById("pr-about-h1");
+  el.style.visibility = "visible";
+  var spans = [];
+  words.forEach(function(word, i){
+    var span = document.createElement("span");
+    span.style.cssText = "opacity:0;transition:opacity 2.2s ease;display:inline;";
+    span.textContent = (i > 0 ? "\u00a0" : "") + word;
+    el.appendChild(span);
+    spans.push(span);
+  });
+  function animateWords(){
+    spans.forEach(function(span){ span.style.opacity="0"; });
+    spans.forEach(function(span, i){
+      setTimeout(function(){ span.style.opacity="1"; }, i * 200);
+    });
+  }
+  animateWords();
+  var observer = new IntersectionObserver(function(entries){
+    entries.forEach(function(entry){
+      if(entry.isIntersecting){ animateWords(); }
+      else { spans.forEach(function(span){ span.style.opacity="0"; }); }
+    });
+  }, {threshold: 0.5});
+  observer.observe(el);
+});
+</script>
 
 <div class="pr-about-wrap">
   <div class="pr-gold-line"></div>

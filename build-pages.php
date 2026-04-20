@@ -39,8 +39,10 @@ $pages = array(
 
   'Calendar' => '
 <style>
-.pr-page-hero{background:#0f1623;padding:80px 60px;text-align:center;}
-.pr-page-hero h1{color:#fff;font-family:"Playfair Display",Georgia,serif;font-size:40px;font-weight:400;letter-spacing:5px;text-transform:uppercase;}
+.pr-page-hero{position:relative;padding:80px 60px;text-align:center;overflow:hidden;min-height:300px;display:flex;align-items:center;justify-content:center;}
+.pr-page-hero video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;}
+.pr-page-hero::after{content:"";position:absolute;inset:0;background:rgba(15,22,35,0.6);z-index:1;}
+.pr-page-hero h1{color:#fff;font-family:"Playfair Display",Georgia,serif;font-size:40px;font-weight:400;letter-spacing:5px;text-transform:uppercase;position:relative;z-index:2;}
 .pr-page-content{max-width:960px;margin:0 auto;padding:80px 40px;}
 .pr-page-content h2{font-family:"Playfair Display",Georgia,serif;font-size:26px;color:#0f1623;letter-spacing:2px;margin:50px 0 10px;}
 .pr-page-content h2:first-child{margin-top:0;}
@@ -56,7 +58,16 @@ $pages = array(
 .pr-cal-table .pr-badge{display:inline-block;color:#c9a96e;font-size:11px;letter-spacing:1px;border:1px solid #c9a96e;padding:2px 7px;white-space:nowrap;}
 .pr-section-label{display:inline-block;background:#0f1623;color:#c9a96e;font-size:11px;letter-spacing:2px;padding:5px 14px;margin-bottom:15px;font-family:Arial,sans-serif;text-transform:uppercase;}
 </style>
-<div class="pr-page-hero"><h1><span class="pr-en">COMPETITION CALENDAR</span><span class="pr-ro">CALENDAR COMPETIȚII</span></h1></div>
+<div class="pr-page-hero"><video autoplay loop muted playsinline><source src="https://phoenix-riders-next.vercel.app/video/competitions-hero.mp4" type="video/mp4"></video><h1 id="pr-cal-title" style="opacity:0;transform:translateY(60px);transition:opacity 1.4s ease,transform 1.4s ease;"><span class="pr-en">COMPETITION CALENDAR</span><span class="pr-ro">CALENDAR COMPETIȚII</span></h1></div>
+<script>
+document.addEventListener("DOMContentLoaded", function(){
+  setTimeout(function(){
+    var el = document.getElementById("pr-cal-title");
+    el.style.opacity = "1";
+    el.style.transform = "translateY(0)";
+  }, 100);
+});
+</script>
 <div class="pr-page-content">
 
   <span class="pr-section-label"><span class="pr-en">Winter Indoor</span><span class="pr-ro">Indoor de iarnă</span></span>
@@ -121,13 +132,34 @@ $pages = array(
 .pr-page-content h2{font-family:Georgia,serif;font-size:28px;color:#0f1623;letter-spacing:2px;margin-bottom:15px;}
 .pr-gold-line{width:60px;height:2px;background:#c9a96e;margin:0 0 30px 0;}
 .pr-event-card{border:1px solid #eee;padding:30px;margin-bottom:25px;display:flex;gap:30px;align-items:flex-start;}
-.pr-event-date{background:#0f1623;color:#c9a96e;padding:15px 20px;text-align:center;font-family:Georgia,serif;min-width:70px;}
+.pr-event-date{background:#0f1623;color:#c9a96e;padding:15px 20px;text-align:center;font-family:Georgia,serif;min-width:70px;box-shadow:0 0 12px 3px rgba(15,22,35,0.45);transition:box-shadow 0.3s ease;}
+.pr-event-card:hover .pr-event-date{box-shadow:0 0 22px 6px rgba(15,22,35,0.75);}
 .pr-event-date strong{display:block;font-size:28px;}
 .pr-event-date span{font-size:12px;letter-spacing:1px;}
 .pr-event-info h3{font-family:Georgia,serif;font-size:20px;color:#0f1623;margin-bottom:8px;}
 .pr-event-info p{color:#666;font-size:14px;line-height:1.7;}
 </style>
-<div class="pr-page-hero"><h1><span class="pr-en">EVENTS</span><span class="pr-ro">EVENIMENTE</span></h1></div>
+<div class="pr-page-hero"><h1 id="pr-events-title"><span class="pr-en" id="pr-tw-en"></span><span class="pr-ro" id="pr-tw-ro"></span></h1>
+</div>
+<script>
+document.addEventListener("DOMContentLoaded", function(){
+  var lang = localStorage.getItem("pr_lang") || "en";
+  var texts = {en: "PHOENIX RIDERS VENUE EVENTS", ro: "EVENIMENTE PHOENIX RIDERS"};
+  var elEn = document.getElementById("pr-tw-en");
+  var elRo = document.getElementById("pr-tw-ro");
+  var target = lang === "ro" ? elRo : elEn;
+  var text = texts[lang];
+  var i = 0;
+  function type(){
+    if(i <= text.length){
+      target.textContent = text.slice(0, i);
+      i++;
+      setTimeout(type, 100);
+    }
+  }
+  type();
+});
+</script>
 <div class="pr-page-content">
   <h2><span class="pr-en">Upcoming Events</span><span class="pr-ro">Evenimente viitoare</span></h2>
   <div class="pr-gold-line"></div>

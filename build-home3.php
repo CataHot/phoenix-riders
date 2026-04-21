@@ -34,7 +34,23 @@ $content = '
 .pr-avatar{width:80px;height:80px;border-radius:50%;background:#c9a96e;color:#0f1623;font-family:Georgia,serif;font-size:20px;font-weight:bold;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:transform 0.35s ease,box-shadow 0.35s ease;cursor:pointer;}
 .pr-avatar:hover{transform:scale(1.12);box-shadow:0 0 0 3px #c9a96e,0 0 18px 4px rgba(201,169,110,0.55);}
 .pr-tcard p{color:#ccc;font-size:15px;font-style:italic;line-height:1.7;margin:0;}
-.pr-tcard cite{color:#c9a96e;font-style:normal;font-weight:bold;font-size:14px;letter-spacing:1px;}
+.pr-tcard cite{color:#c9a96e;font-style:normal;font-weight:bold;font-size:14px;letter-spacing:1px;display:inline-block;transition:transform 0.3s ease;}
+.pr-tcard:has(.pr-avatar:hover) cite{transform:scale(1.15);}
+.pr-avatar.pr-touch-active{transform:scale(1.12);box-shadow:0 0 0 3px #c9a96e,0 0 18px 4px rgba(201,169,110,0.55);}
+.pr-tcard:has(.pr-avatar.pr-touch-active) cite{transform:scale(1.15);}
+@media (max-width:768px){
+  .pr-hero{min-height:100svh;padding:30px 20px;justify-content:flex-end;padding-bottom:80px;}
+  .pr-hero h1{font-size:22px;letter-spacing:1px;}
+  .pr-hero p{font-size:15px;}
+  .pr-btn{padding:12px 28px;font-size:12px;}
+  .pr-why{padding:50px 20px;}
+  .pr-why h2{font-size:24px;}
+  .pr-why p{font-size:15px;}
+  .pr-services{padding:50px 20px;gap:30px;}
+  .pr-service{min-width:100%;max-width:100%;}
+  .pr-testimonial{padding:50px 20px;}
+  .pr-testimonial-grid{grid-template-columns:1fr;gap:40px;}
+}
 </style>
 
 <div class="pr-hero" style="position:relative;z-index:0;">
@@ -153,6 +169,15 @@ document.addEventListener("DOMContentLoaded", function(){
     });
   }, {threshold: 0.2});
   cards.forEach(function(card){ observer.observe(card); });
+  if(\'ontouchstart\' in window){
+    document.querySelectorAll(\'.pr-avatar\').forEach(function(av){
+      av.addEventListener(\'click\', function(){
+        var active = av.classList.contains(\'pr-touch-active\');
+        document.querySelectorAll(\'.pr-avatar\').forEach(function(a){ a.classList.remove(\'pr-touch-active\'); });
+        if(!active) av.classList.add(\'pr-touch-active\');
+      });
+    });
+  }
 });
 </script>
 

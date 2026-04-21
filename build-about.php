@@ -23,6 +23,13 @@ $content = '
 .pr-slider-prev{left:16px;}
 .pr-slider-next{right:16px;}
 .pr-slider-counter{position:absolute;bottom:14px;right:20px;color:#c9a96e;font-size:12px;letter-spacing:2px;font-family:Arial,sans-serif;background:rgba(15,22,35,0.6);padding:4px 10px;}
+@media(max-width:768px){
+  .pr-page-hero{padding:40px 15px;}
+  .pr-page-hero h1{font-size:16px;letter-spacing:1px;}
+  .pr-about-wrap{padding:40px 20px;}
+  .pr-slider{margin:20px 10px 0;}
+  .pr-slider-img{height:220px;}
+}
 </style>
 
 <div class="pr-page-hero">

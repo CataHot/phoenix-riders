@@ -57,6 +57,14 @@ $pages = array(
 .pr-cal-table .pr-date{color:#0f1623;font-weight:bold;white-space:nowrap;}
 .pr-cal-table .pr-badge{display:inline-block;color:#c9a96e;font-size:11px;letter-spacing:1px;border:1px solid #c9a96e;padding:2px 7px;white-space:nowrap;}
 .pr-section-label{display:inline-block;background:#0f1623;color:#c9a96e;font-size:11px;letter-spacing:2px;padding:5px 14px;margin-bottom:15px;font-family:Arial,sans-serif;text-transform:uppercase;}
+@media(max-width:768px){
+  .pr-page-hero{min-height:220px;padding:40px 15px;}
+  .pr-page-hero h1{font-size:18px;letter-spacing:2px;}
+  .pr-page-content{padding:40px 20px;}
+  .pr-cal-table thead th{padding:10px 8px;font-size:10px;letter-spacing:1px;}
+  .pr-cal-table tbody td{padding:10px 8px;font-size:12px;}
+  .pr-cal-table .pr-date{white-space:normal;}
+}
 </style>
 <div class="pr-page-hero"><video autoplay loop muted playsinline><source src="https://phoenix-riders-next.vercel.app/video/competitions-hero.mp4" type="video/mp4"></video><h1 id="pr-cal-title" style="opacity:0;transform:translateY(60px);transition:opacity 1.4s ease,transform 1.4s ease;"><span class="pr-en">COMPETITION CALENDAR</span><span class="pr-ro">CALENDAR COMPETIȚII</span></h1></div>
 <script>
@@ -138,6 +146,15 @@ document.addEventListener("DOMContentLoaded", function(){
 .pr-event-date span{font-size:12px;letter-spacing:1px;}
 .pr-event-info h3{font-family:Georgia,serif;font-size:20px;color:#0f1623;margin-bottom:8px;}
 .pr-event-info p{color:#666;font-size:14px;line-height:1.7;}
+@media(max-width:768px){
+  .pr-page-hero{padding:40px 15px;display:flex;align-items:center;justify-content:center;min-height:180px;}
+  .pr-page-hero h1{font-size:18px;letter-spacing:2px;}
+  .pr-page-content{padding:40px 20px;}
+  .pr-event-card{flex-direction:column;gap:15px;padding:20px;}
+  .pr-event-date{min-width:auto;display:flex;gap:10px;align-items:center;padding:10px 15px;}
+  .pr-event-date strong{font-size:22px;}
+  .pr-event-info h3{font-size:17px;}
+}
 </style>
 <div class="pr-page-hero"><h1 id="pr-events-title"><span class="pr-en" id="pr-tw-en"></span><span class="pr-ro" id="pr-tw-ro"></span></h1>
 </div>

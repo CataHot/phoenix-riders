@@ -13,10 +13,9 @@ add_action('wp_head', function() {
 <style>
 /* Reset hello theme header */
 .site-header { padding: 0 !important; background: transparent !important; border-bottom: none !important; display: none !important; }
-.pr-header { position: fixed !important; top: 0; left: 0; right: 0; z-index: 9999; background: #0f1623; border-bottom: 1px solid #fff; }
+.pr-header { position: fixed !important; top: 0; left: 0; right: 0; z-index: 99999 !important; background: #0f1623; border-bottom: 1px solid #fff; display: flex !important; align-items: center; justify-content: space-between; padding: 18px 60px; }
 body { padding-top: 70px; }
 .site-branding { display: none !important; }
-.pr-header { display: flex; align-items: center; justify-content: space-between; padding: 18px 60px; }
 .pr-logo { font-family: Georgia, serif; font-size: 22px; font-weight: 700; text-decoration: none; letter-spacing: 3px; }
 .pr-logo .pr-word-phoenix { color: #fff; transition: color 0.3s; }
 .pr-logo .pr-word-riders { color: #c9a96e; transition: color 0.3s; }
@@ -46,6 +45,32 @@ span[data-lang="ro"], span[data-lang="en"] { display: inline !important; }
 [data-lang="ro"] span.pr-en { display: none !important; }
 [data-lang="en"] span.pr-ro { display: none !important; }
 [data-lang="en"] span.pr-en { display: inline !important; }
+
+@media(max-width:900px){
+  body { padding-top: 58px; }
+  .pr-header { padding: 12px 15px !important; }
+  .pr-lang { flex-shrink: 0; }
+}
+/* Mobile nav */
+.pr-hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 5px; background: none; border: none; }
+.pr-hamburger span { display: block; width: 24px; height: 2px; background: #c9a96e; transition: all 0.3s; }
+.pr-hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.pr-hamburger.open span:nth-child(2) { opacity: 0; }
+.pr-hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+@media (max-width: 900px) {
+  .pr-header { padding: 14px 20px; }
+  .pr-hamburger { display: flex; }
+  .pr-nav { display: none; flex-direction: column; position: absolute; top: 100%; left: 0; right: 0; background: #0f1623; padding: 20px 0; gap: 0; border-top: 1px solid #fff; }
+  .pr-nav.open { display: flex; }
+  .pr-nav li { border-bottom: 1px solid rgba(255,255,255,0.08); }
+  .pr-nav a { display: block; padding: 14px 24px; font-size: 13px; }
+  .pr-dropdown-menu { display: none !important; position: static; opacity: 1 !important; pointer-events: auto !important; box-shadow: none; background: rgba(201,169,110,0.18); padding: 0; transition: none; }
+  .pr-dropdown.open .pr-dropdown-menu { display: block !important; }
+  .pr-dropdown-menu a { padding: 12px 36px; color: #c9a96e; font-style: normal; font-size: 12px; letter-spacing: 1px; }
+  .pr-nav .pr-dropdown > a::after { float: right; }
+  .pr-lang { gap: 6px; }
+}
 </style>
 <?php
 });
@@ -53,7 +78,8 @@ span[data-lang="ro"], span[data-lang="en"] { display: inline !important; }
 add_action('wp_body_open', function() {
     echo '<div class="pr-header">
         <a class="pr-logo" href="' . home_url() . '"><span class="pr-word-phoenix">PHOENIX</span> <span class="pr-word-riders">RIDERS</span></a>
-        <ul class="pr-nav">
+        <button class="pr-hamburger" id="pr-hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+        <ul class="pr-nav" id="pr-nav">
             <li><a href="' . home_url() . '"><span class="pr-en">Home</span><span class="pr-ro">Acasă</span></a></li>
             <li><a href="' . get_permalink(get_page_by_title("About Us")) . '"><span class="pr-en">About Us</span><span class="pr-ro">Despre Noi</span></a></li>
             <li class="pr-dropdown">
@@ -117,6 +143,24 @@ add_action('wp_footer', function() {
   </div>
 </footer>
 <script>
+document.addEventListener("DOMContentLoaded", function(){
+  var btn = document.getElementById("pr-hamburger");
+  var nav = document.getElementById("pr-nav");
+  if(btn && nav){
+    btn.addEventListener("click", function(){
+      btn.classList.toggle("open");
+      nav.classList.toggle("open");
+    });
+    nav.querySelectorAll(".pr-dropdown > a").forEach(function(a){
+      a.addEventListener("click", function(e){
+        if(window.innerWidth <= 900){
+          e.preventDefault();
+          a.parentElement.classList.toggle("open");
+        }
+      });
+    });
+  }
+});
 function prSetLang(lang) {
   localStorage.setItem('pr_lang', lang);
   document.documentElement.setAttribute('data-lang', lang);

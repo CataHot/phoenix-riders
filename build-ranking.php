@@ -36,6 +36,21 @@ $content = '
 .pr-closing h2{color:#fff;font-family:Georgia,serif;font-size:28px;letter-spacing:3px;margin-bottom:15px;}
 .pr-closing p{color:#aaa;font-size:16px;line-height:1.8;max-width:650px;margin:0 auto 20px;}
 .pr-closing em{color:#c9a96e;font-style:italic;font-size:18px;display:block;margin-top:25px;}
+@media(max-width:768px){
+  .pr-page-hero{padding:40px 15px;min-height:220px;}
+  .pr-page-hero h1{font-size:20px;letter-spacing:2px;}
+  .pr-page-hero p{font-size:11px;letter-spacing:2px;}
+  .pr-rank-wrap{padding:40px 20px;}
+  .pr-rank-wrap h2{font-size:20px;}
+  .pr-motto{padding:30px 20px;}
+  .pr-motto p{font-size:16px;}
+  .pr-pillars{flex-wrap:wrap;}
+  .pr-pillar{flex:1 1 45%;min-width:45%;}
+  .pr-points-table th,.pr-points-table td{padding:8px 6px;font-size:12px;}
+  .pr-closing{padding:40px 20px;}
+  .pr-closing h2{font-size:22px;}
+  .pr-dark-box{padding:20px 20px;}
+}
 .pr-lb-btn{display:inline-block;background:#c9a96e;color:#fff;padding:14px 45px;letter-spacing:3px;font-size:13px;text-decoration:none;font-family:Arial,sans-serif;text-transform:uppercase;margin-top:20px;transition:background 0.3s;}
 .pr-lb-btn:hover{background:#112240;}
 </style>
@@ -43,7 +58,7 @@ $content = '
 <div class="pr-page-hero">
   <h1 id="pr-rank-h1" style="opacity:0;transform:translateY(60px);transition:opacity 1.4s ease,transform 1.4s ease;">PHOENIX RIDERS RANKING</h1>
   <p id="pr-rank-p" style="opacity:0;transform:translateY(60px);transition:opacity 1.4s ease,transform 1.4s ease;"><span class="pr-en">RISE TO THE TOP</span><span class="pr-ro">URCĂ SPRE VÂRF</span></p>
-  <a href="' . home_url('/leaderboard/') . '" class="pr-lb-btn"><span class="pr-en">Leaderboard</span><span class="pr-ro">Clasament</span></a>
+  <a href="' . home_url('/ranking/leaderboard/') . '" class="pr-lb-btn"><span class="pr-en">Leaderboard</span><span class="pr-ro">Clasament</span></a>
 </div>
 <script>
 document.addEventListener("DOMContentLoaded", function(){
